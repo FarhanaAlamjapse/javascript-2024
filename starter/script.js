@@ -138,6 +138,7 @@ if (birthYear <= 2000) {
   console.log(century);
 }*/
 
+/*
 //Type Conversion and Coercion
 //type conversion:manually
 const inputYear = "1991";
@@ -155,4 +156,44 @@ console.log("23" / "2");
 
 let n = "1" + 1;
 n = n - 1;
-console.log(n);
+console.log(n);*/
+
+/*
+//falsy:0,undefined,'',null,NaN
+console.log(Boolean(0));
+console.log(Boolean(undefined));
+console.log(Boolean("jonas"));
+console.log(Boolean({}));
+console.log(Boolean(""));
+
+const money = 0;
+if (money) {
+  //falsy
+  console.log("save it");
+} else {
+  console.log("earn");
+}
+
+const height = 0; //falsy
+if (height) {
+  console.log("defined");
+} else {
+  console.log("undefined");
+}*/
+
+//equality operators:== vs===
+const age = "18";
+if (age == 18) console.log("you just became an adult:D (loose)");
+if (age === 18) console.log("you just became an adult:D (strict)");
+
+const favourite = prompt("whats your fav num?");
+console.log(favourite);
+console.log(typeof favourite);
+
+if (favourite === 8) {
+  console.log("cool...8");
+} else if (favourite === 9) {
+  console.log("cool...9");
+} else {
+  console.log("not 8 or 9");
+}
