@@ -46,6 +46,7 @@ birhtyear = 1996;//error
 var job = "programmer";
 job = "teacher";*/
 
+/*
 //basic operators
 // math operators
 const now = 2024;
@@ -72,4 +73,45 @@ console.log(x);
 console.log(ageSakib > ageAfif); //>,<,>=,<=
 console.log(ageAfif >= 10);
 
-const isFullAge = ageAfif >= 10;
+const isFullAge = ageAfif >= 10;*/
+
+/*
+//operator precedence
+let x, y;
+x = y = 25 - 10 - 5; //x=y=10,x=10
+console.log(x, y);
+
+const now = 2024;
+const ageAfif = now - 2014;
+const ageSakib = now - 2000;
+
+const averageAge = (ageAfif + ageSakib) / 2;
+console.log(ageAfif, ageSakib, averageAge);*/
+
+//Strings and template literals
+
+const firstName = "japse";
+const job = "learner";
+const birthYear = 1996;
+const year = 2024;
+
+const japse =
+  "I'm " + firstName + ",a " + (year - birthYear) + " years old " + job + "!";
+console.log(japse); //painful to use
+
+const japseNew = `I'm ${firstName} a ${year - birthYear} years old ${job}!`;
+console.log(japseNew); //using es6
+
+console.log(`just a regular string....`); //in console
+
+//multiline before es6
+console.log(
+  "string\n\
+    multiline\n\
+    lines"
+);
+
+//using template/es6:more easier
+console.log(`string
+    multiline 
+    lines`);
