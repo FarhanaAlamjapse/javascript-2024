@@ -35,11 +35,41 @@ console.log(typeof year); //number
 //null
 console.log(typeof null);*/
 
+/*
 //let,const,var
 let age = 30;
 age = 32;
 
 const birhtyear = 1990;
-birhtyear = 1996;
+birhtyear = 1996;//error
+
 var job = "programmer";
-job = "teacher";
+job = "teacher";*/
+
+//basic operators
+// math operators
+const now = 2024;
+const ageAfif = now - 2014;
+const ageSakib = now - 2000;
+
+console.log(ageAfif, ageSakib);
+console.log(ageAfif * 2, ageSakib / 20, 2 ** 3);
+
+const firstName = "sadman";
+const lastName = "Alam";
+console.log(firstName + " " + lastName);
+
+//assignment operators
+let x = 10 + 5;
+x += 5; //x=x+5
+x *= 2; //x-x*2
+x++; //x+1
+x--; //x-1
+x--;
+console.log(x);
+
+//comparison operators :reply with boolean
+console.log(ageSakib > ageAfif); //>,<,>=,<=
+console.log(ageAfif >= 10);
+
+const isFullAge = ageAfif >= 10;
