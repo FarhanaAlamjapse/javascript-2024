@@ -11,6 +11,7 @@ console.log(firstName);
 console.log(firstName);
 console.log(firstName);*/
 
+/*
 //Boolean
 let javascriptIsFun = true; //can be stored in a variable also
 console.log(javascriptIsFun);
@@ -32,4 +33,13 @@ year = 1991;
 console.log(typeof year); //number
 
 //null
-console.log(typeof null);
+console.log(typeof null);*/
+
+//let,const,var
+let age = 30;
+age = 32;
+
+const birhtyear = 1990;
+birhtyear = 1996;
+var job = "programmer";
+job = "teacher";
