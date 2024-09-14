@@ -87,15 +87,15 @@ checkWinner(scoreDolphins, scoreKoalas);
 
 //challenge 6
 
-const calcTip = (bill) => {
-  const tip = bill <= 300 && bill >= 50 ? bill * 0.15 : bill * 0.2;
-  return tip;
-};
-console.log(calcTip(100));
-const bills = [125, 555, 44];
-const tips = [calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2])];
-const totals = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]];
-console.log(bills, tips, totals);
+// const calcTip = (bill) => {
+//   const tip = bill <= 300 && bill >= 50 ? bill * 0.15 : bill * 0.2;
+//   return tip;
+// };
+// console.log(calcTip(100));
+// const bills = [125, 555, 44];
+// const tips = [calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2])];
+// const totals = [bills[0] + tips[0], bills[1] + tips[1], bills[2] + tips[2]];
+// console.log(bills, tips, totals);
 
 //challenge 7
 const Mark = {
@@ -130,3 +130,54 @@ if (John.bmi > Mark.bmi) {
     `${Mark.fullName} BMI ${Mark.bmi} is higher than ${John.fullName}'s ${John.bmi}`
   );
 }
+
+// Create an array called bills containing all 10 test bill values.
+// Create empty arrays for the tips and the totals (tips and totals)
+// Use the calcTip function we wrote before (included in the starter code) to calculate tips and total values (bill + tip) for every bill value in the bills array. Use a for loop to perform the 10 calculations!
+
+// TEST DATA: 22, 295, 176, 440, 37, 105, 10, 1100, 86, and 52.
+// BONUS:
+// Write a function calcAverage which takes an array called arr as an argument. This function calculates the average of all numbers in the given array. This is a DIFFICULT challenge (we haven't done this before)! Here is how to solve it if you feel like it:
+// First, you will need to add up all values in the array. To do the addition, start by creating a variable sum that starts at 0. Then loop over the array using a for loop. In each iteration, add the current value to the sum variable. This way, by the end of the loop, you have all values added together.
+// To calculate the average, divide the sum you calculated before by the length of the array (because that's the number of elements).
+// Call the function with the totals array.
+
+//challenge 8
+const calcTip = (bill) => {
+  return bill <= 300 && bill >= 50 ? bill * 0.15 : bill * 0.2;
+};
+
+const bills = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
+const tips = [];
+const totals = [];
+
+for (let i = 0; i < bills.length; i++) {
+  const tip = calcTip(bills[i]); //each iteration we get new one
+  tips.push(tip);
+  totals.push(tip + bills[i]);
+}
+console.log(bills, tips, totals);
+
+const calcAverage1 = function (arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum / arr.length;
+};
+console.log(calcAverage1(totals));
+
+//challenge 9
+const data1 = [17, 21, 23];
+const data2 = [12, 5, -5, 0, 4];
+
+console.log(`...${data1[0]}C...${data1[1]}C...${data1[2]}...`);
+
+const printForest = function (arr) {
+  let str = "";
+  for (let i = 0; i < arr.length; i++) {
+    str += `${arr[i]}C in ${i + 1} days...`;
+  }
+  console.log("..." + str);
+};
+printForest(data1);
