@@ -127,6 +127,7 @@ const addExpr = function (a, b) {
 addExpr(2, 5);
 addExpr(2, 5, 8, 12);*/
 
+/*
 //primitive vs. objects(primitive vs. reference types)
 
 //primitive
@@ -156,8 +157,8 @@ const japse2 = {
 
 const japseCopy = Object.assign({}, japse2); //complete new obj
 japseCopy.lastName = 'ali';
-japseCopy.family.push('a');
+japseCopy.family.push('a');//it will add to japse2 also cause of shallow copy.to solve use deep clone
 japseCopy.family.push('b');
 
 console.log('before marriage', japse2);
-console.log('after marriage', japseCopy);
+console.log('after marriage', japseCopy);*/
