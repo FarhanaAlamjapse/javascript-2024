@@ -51,6 +51,7 @@ const addExp = function (a, b) {
 //arrow function get ref error
 const addArrow = (a, b) => a + b;*/
 
+/*
 //this keyword
 console.log(this); //global object
 
@@ -82,4 +83,45 @@ afif.calcAge = japse.calcAge; //method borrowing
 afif.calcAge(); //points to the the object that is calling the method.here this points to afif
 
 const f = japse.calcAge;
-f();
+f();//undefined because f() is a regular function here.there is no owner of f*/
+
+//Regular function vs arrow function
+
+//var firstName = 'afif';
+const japse = {
+  firstName: 'japse',
+  year: 1996,
+  calcAge: function () {
+    console.log(this);
+    console.log(2023 - this.year);
+
+    //   //when another regular function inside method this keyword undefined.to solve this declare self variable and set this
+    //   //solution 1
+    //   const self = this; //self or that
+    //   const isMillenial = function () {
+    //     console.log(self);
+    //     console.log(self.year >= 1981 && self.year <= 1996);
+    //   };
+    //   isMillenial();
+
+    //solution 2
+    const isMillenial = () => {
+      console.log(this);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+    isMillenial();
+  },
+
+  greet: () => console.log(`Hey ${this.firstName}`), //undefined,arrow function don't own this keyword,points to global.but if we use var it will take var value
+};
+japse.greet();
+japse.calcAge();
+console.log(this); //don't get error.undefined.when we try to access a property that doesn't exist-undefined
+
+//arguments keyword
+const addExpr = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+addExpr(2, 5);
+addExpr(2, 5, 8, 12);
