@@ -85,6 +85,7 @@ afif.calcAge(); //points to the the object that is calling the method.here this 
 const f = japse.calcAge;
 f();//undefined because f() is a regular function here.there is no owner of f*/
 
+/*
 //Regular function vs arrow function
 
 //var firstName = 'afif';
@@ -124,4 +125,39 @@ const addExpr = function (a, b) {
   return a + b;
 };
 addExpr(2, 5);
-addExpr(2, 5, 8, 12);
+addExpr(2, 5, 8, 12);*/
+
+//primitive vs. objects(primitive vs. reference types)
+
+//primitive
+let lastName = 'japse';
+let oldLastName = lastName;
+lastName = 'faru'; //differnt memory addr in stack
+console.log(lastName, oldLastName);
+
+//reference type
+const japse = {
+  firstName: 'Farhana',
+  lastName: 'alam',
+  age: 27,
+};
+const marriedJapse = japse; //same address in heap.
+marriedJapse.lastName = 'ali'; //change the property of obj
+console.log('before marriage', japse);
+console.log('after marriage', marriedJapse);
+
+//copying objects
+const japse2 = {
+  firstName: 'Farhana',
+  lastName: 'alam',
+  age: 27,
+  family: ['x', 'y'],
+};
+
+const japseCopy = Object.assign({}, japse2); //complete new obj
+japseCopy.lastName = 'ali';
+japseCopy.family.push('a');
+japseCopy.family.push('b');
+
+console.log('before marriage', japse2);
+console.log('after marriage', japseCopy);
