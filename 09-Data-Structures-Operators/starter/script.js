@@ -43,8 +43,48 @@ const restaurant = {
       `Here is your delicious pasta with ${ing1},${ing2} and ${ing3}`
     );
   },
+  orderPizza: function (mainIngredient, ...otherIngredient) {
+    console.log(mainIngredient);
+    console.log(otherIngredient);
+  },
 };
+//rest operator
+//destructuring
+//spread because of right side of =
+const arr = [1, 2, ...[3, 4]];
 
+//rest because of left side of =
+const [a, b, ...others] = [1, 2, 3, 4, 5];
+console.log(a, b, others);
+
+//spread and rest at same time
+const [pizza, coke, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+console.log(pizza, coke, otherFood);
+
+//objects
+const { sat, ...weekDays } = restaurant.openingHours;
+console.log(sat, weekDays);
+
+//function
+const add = function (...numbers) {
+  //all pack
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) sum += numbers[i];
+  console.log(sum);
+};
+add(2, 3);
+add(5, 6, 7, 8);
+add(1, 2, 3, 4, 5, 6, 7);
+
+const x = [5, 6, 7];
+add(...x); //spread,unpacking
+
+restaurant.orderPizza('mushroom', 'chicken', 'cheese', 'olives');
+restaurant.orderPizza('mushroom');
+/*
 // spread operator
 //before
 const arr = [7, 8, 9];
