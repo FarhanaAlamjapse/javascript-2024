@@ -38,7 +38,59 @@ const restaurant = {
       `order received ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}}`
     );
   },
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(
+      `Here is your delicious pasta with ${ing1},${ing2} and ${ing3}`
+    );
+  },
 };
+
+// spread operator
+//before
+const arr = [7, 8, 9];
+const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
+console.log(badNewArr);
+const newArr = [1, 2, ...arr];
+console.log(newArr);
+
+console.log(...newArr);
+console.log(1, 2, 7, 8, 9); //same as prior line
+
+const newMenu = [...restaurant.mainMenu, 'bangla food'];
+console.log(newMenu);
+
+//copy array
+const mainMenuCopy = [...restaurant.mainMenu]; //shallow copy like obj.assign
+
+//join 2 arrays
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(menu);
+
+//iterable:arrays,strings,maps,sets.not objects
+const str = 'japse';
+const letters = [...str, 'f'];
+console.log(letters);
+console.log(...str);
+
+//passing into function
+const ingredients = [
+  prompt("Let's make pasta with ingredient1?"),
+  prompt('ingredient2?'),
+  prompt('ingredient3?'),
+];
+console.log(ingredients);
+restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
+restaurant.orderPasta(...ingredients); //same as prior line but its easy
+
+//es 2018 ,spread operator works on objects
+const newRestaurant = { foundedIn: '2014', ...restaurant, founder: 'japse' };
+console.log(newRestaurant);
+
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'bd';
+console.log(restaurantCopy.name, restaurant.name);
+
+/*
 restaurant.orderDelivery({
   time: '8',
   address: 'pekua',
