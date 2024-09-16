@@ -11,9 +11,6 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-  order: function (starterIndex, mainIndex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-  },
   openingHours: {
     thu: {
       open: 12,
@@ -28,7 +25,63 @@ const restaurant = {
       close: 24,
     },
   },
+  order: function (starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+  orderDelivery: function ({
+    starterIndex = 2,
+    time = 3,
+    address = 'ctg',
+    mainIndex = 0,
+  }) {
+    console.log(
+      `order received ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}}`
+    );
+  },
 };
+restaurant.orderDelivery({
+  time: '8',
+  address: 'pekua',
+  mainIndex: 2,
+  starterIndex: 1,
+});
+restaurant.orderDelivery({
+  starterIndex: 1,
+  mainIndex: 2,
+});
+//destructuring objects
+const { name, openingHours, categories } = restaurant;
+console.log(name, openingHours, categories);
+
+//new variable name helpful dealing with 3rd party data
+const {
+  name: restaurantName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+console.log(restaurantName, hours, tags);
+
+//setting a default value in object
+const { menu = [], starterMenu: starters = [] } = restaurant;
+console.log(menu, starters);
+
+//mutating variables
+let a = 111;
+let b = 999;
+const obj = { a: 6, b: 3, c: 9 };
+({ a, b } = obj);
+console.log(a, b);
+
+//nested objects
+const {
+  //   fri: { open, close },
+  // } = openingHours;
+  fri: { open: o, close: c },
+} = openingHours;
+console.log(o, c);
+
+/*
+//destructuring arrays
 const arr = [2, 3, 4];
 const a = arr[0];
 const b = arr[1];
@@ -62,5 +115,8 @@ const [i, , [j, k]] = nested;
 console.log(i, j, k);
 
 //default values when we dont know the length of array
-const [p, q, r] = [8.9];
-console.log(p, q, r);
+//const [p, q, r] = [8.9];
+console.log(p, q, r); //r is undefined
+//to solve this:
+const [p=1, q=1, r=1] = [8.9];
+console.log(p, q, r);  //r=1*/
