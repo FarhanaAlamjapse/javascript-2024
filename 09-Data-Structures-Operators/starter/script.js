@@ -48,6 +48,14 @@ const restaurant = {
     console.log(otherIngredient);
   },
 };
+//nullish coalescing
+restaurant.numbGuests = 0;
+const guest2 = restaurant.numbGuests || 10; //do short circuiting.return 10 as falsy value
+console.log(guest2);
+//to solve this
+const guest1 = restaurant.numbGuests ?? 10; //now return 0
+console.log(guest1);
+/*
 //short circuiting
 //or operator:use any data type,return any data type,short circuiting
 console.log(3 || 'japse'); //get 1st truthy and return it
@@ -70,7 +78,7 @@ console.log('Hello' && 23 && null && 'japse');
 if (restaurant.orderPizza) {
   restaurant.orderPizza('cheese', 'spinach');
 }
-restaurant.orderPizza && restaurant.orderPizza('chick', 'cheese');
+restaurant.orderPizza && restaurant.orderPizza('chicken', 'cheese');
 
 /*
 //rest operator
