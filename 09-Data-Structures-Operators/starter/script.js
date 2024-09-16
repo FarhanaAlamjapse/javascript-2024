@@ -48,13 +48,46 @@ const restaurant = {
     console.log(otherIngredient);
   },
 };
+
+//logical assignment operators
+const rest1 = {
+  name: 'rio-coffee',
+  //numGuests: 20,
+  numGuests: 0,
+};
+const rest2 = {
+  name: 'boat-club',
+  owner: 'chairman',
+};
+// rest1.numGuests = rest1.numGuests || 10;
+// rest2.numGuests = rest2.numGuests || 10;
+
+//or assignment operator
+// rest1.numGuests ||= 10;
+// rest2.numGuests ||= 10; //falsy,so assigned to 10
+// console.log(rest1, rest2);
+
+//nullish(null,undefined) assignment operator
+rest1.numGuests ??= 10; //0 so that not null return it
+rest2.numGuests ??= 10; //undefined so that assign 10
+console.log(rest1, rest2);
+
+// rest1.owner = rest1.owner && '<ANONYMOUS>';
+// rest2.owner = rest2.owner && '<ANONYMOUS>';
+
+//and assignment operator
+rest1.owner &&= '<ANONYMOUS>';
+rest2.owner &&= '<ANONYMOUS>';
+console.log(rest1, rest2);
+
+/*
 //nullish coalescing
 restaurant.numbGuests = 0;
 const guest2 = restaurant.numbGuests || 10; //do short circuiting.return 10 as falsy value
 console.log(guest2);
-//to solve this
-const guest1 = restaurant.numbGuests ?? 10; //now return 0
-console.log(guest1);
+//to solve this coalescing
+const guestCorrect = restaurant.numbGuests ?? 10; //now return 0..fix error
+console.log(guestCorrect);
 /*
 //short circuiting
 //or operator:use any data type,return any data type,short circuiting
