@@ -59,6 +59,15 @@ const rest2 = {
   name: 'boat-club',
   owner: 'chairman',
 };
+//for-of-loop
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+for (const item of menu) console.log(item);
+for (const [i, el] of menu.entries()) {
+  console.log(`${i + 1}:${el}`);
+}
+console.log(menu.entries());
+
+/*
 // rest1.numGuests = rest1.numGuests || 10;
 // rest2.numGuests = rest2.numGuests || 10;
 
@@ -76,7 +85,7 @@ console.log(rest1, rest2);
 // rest2.owner = rest2.owner && '<ANONYMOUS>';
 
 //and assignment operator
-rest1.owner &&= '<ANONYMOUS>';
+rest1.owner &&= '<ANONYMOUS>'; //result is better than before
 rest2.owner &&= '<ANONYMOUS>';
 console.log(rest1, rest2);
 
