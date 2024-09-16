@@ -48,6 +48,31 @@ const restaurant = {
     console.log(otherIngredient);
   },
 };
+//short circuiting
+//or operator:use any data type,return any data type,short circuiting
+console.log(3 || 'japse'); //get 1st truthy and return it
+console.log('' || 'japse'); //japse cause 1st one is falsy
+console.log(true || 0);
+console.log(undefined || null); //both falsy but return last one
+console.log(undefined || 0 || '' || 'Hello' || 23 || null);
+
+restaurant.numbGuests = 23;
+const guest1 = restaurant.numbGuests ? restaurant.numbGuests : 10;
+console.log(guest1);
+const guest2 = restaurant.numbGuests || 10; //do short circuiting
+console.log(guest2);
+
+//and operator
+console.log(0 && 'jonas');
+console.log(7 && 'japse');
+console.log('Hello' && 23 && null && 'japse');
+
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('cheese', 'spinach');
+}
+restaurant.orderPizza && restaurant.orderPizza('chick', 'cheese');
+
+/*
 //rest operator
 //destructuring
 //spread because of right side of =
