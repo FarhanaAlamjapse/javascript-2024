@@ -49,7 +49,40 @@ const restaurant = {
     console.log(otherIngredient);
   },
 };
+//sets
+const orderSet = new Set([
+  'pasta',
+  'pizza',
+  'pizza',
+  'Risotto',
+  'pasta',
+  'pizza',
+]);
+console.log(orderSet); //all duplicates gone
+console.log(new Set('japse')); //string is also iterable.j a p s e
+console.log(orderSet.size); //3
+console.log(orderSet.has('pizza')); //true..similar to include in array
+console.log(orderSet.has('bread')); //false
+orderSet.add('Garlic Bread');
+orderSet.add('Garlic Bread'); //1 will add
+orderSet.delete('Risotto');
+//orderSet.clear(); //delete all
+console.log(orderSet);
+//sets are iterable.we can loop over them
+for (const set of orderSet) console.log(set);
+//example
+const staff = ['waiter', 'chef', 'waiter', 'manager', 'chef', 'waiter'];
+//const staffUnique = new Set(staff);//it comes out set
+const staffUnique = [...new Set(staff)]; //to make array use spread.we will unpack by ... and put them in newly constructed array []
+console.log(staffUnique);
+//using string to see size
+console.log(new Set('japsee').size); //5
 
+console.log(
+  new Set(['waiter', 'chef', 'waiter', 'manager', 'chef', 'waiter']).size
+);
+
+/*
 //looping objects
 //property names
 const properties = Object.keys(openingHours);
