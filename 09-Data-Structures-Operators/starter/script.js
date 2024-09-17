@@ -49,6 +49,39 @@ const restaurant = {
     console.log(otherIngredient);
   },
 };
+//maps
+const rest = new Map();
+rest.set('name', 'rio-coffee');
+rest.set(1, 'dhaka,bd'); //we can add diff type
+console.log(rest.set(2, 'delhi,India'));
+rest
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'we are open:D')
+  .set(false, 'we are close:(');
+
+console.log(rest.get('name')); //string
+console.log(rest.get(true)); //boolean
+console.log(rest.get('1')); //undefined
+
+//dont overuse this
+const time = 21;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+//
+console.log(rest.has('categories'));
+
+const arr = [1, 2];
+rest.set(arr, 'test');
+
+console.log(rest);
+console.log(rest.size);
+//rest.clear()
+rest.delete(2);
+console.log(rest);
+console.log(rest.get(arr));
+
+/*
 //sets
 const orderSet = new Set([
   'pasta',
@@ -77,7 +110,7 @@ const staffUnique = [...new Set(staff)]; //to make array use spread.we will unpa
 console.log(staffUnique);
 //using string to see size
 console.log(new Set('japsee').size); //5
-
+//you can also check like this
 console.log(
   new Set(['waiter', 'chef', 'waiter', 'manager', 'chef', 'waiter']).size
 );
