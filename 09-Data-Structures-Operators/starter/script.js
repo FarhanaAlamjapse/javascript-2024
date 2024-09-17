@@ -49,6 +49,29 @@ const restaurant = {
     console.log(otherIngredient);
   },
 };
+
+//looping objects
+//property names
+const properties = Object.keys(openingHours);
+console.log(properties);
+
+let openStr = `We are open on ${properties.length} days:`;
+for (const day of properties) {
+  openStr += ` ${day}`;
+}
+console.log(openStr);
+//property values
+const values = Object.values(openingHours);
+console.log(values);
+//Entire object
+const entries = Object.entries(openingHours);
+//console.log(entries);
+//key,value:key=day,value destructure {open,close}
+for (const [day, { open, close }] of entries) {
+  console.log(`on ${day} We are open at ${open} and close at ${close}  `);
+}
+
+/*
 //without optional chaining
 if (restaurant.openingHours && restaurant.openingHours.mon)
   console.log(restaurant.openingHours.mon.open);
@@ -73,7 +96,7 @@ console.log(restaurant.orderRisotto?.(0, 1) ?? "Method doesn't exist");
 const users = [{ name: 'Japse', email: 'hello@jonas.io' }];
 //using optional chaining
 console.log(users[0]?.name ?? 'user array empty');
-//without optional chaining
+//without optional chaining a lot of work
 if (users.length > 0) console.log(users[0].name);
 else console.log('user array empty');
 
