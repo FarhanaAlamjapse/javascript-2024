@@ -1,5 +1,31 @@
 'use strict';
-/*
+//how passing arg works in function
+const flight = 'LH234';
+const japse = {
+  name: 'japse',
+  passport: 6363656531,
+};
+const checkIn = function (flightNum, passenger) {
+  flightNum = 'LH999'; //shouldnt change .just to understand
+  passenger.name = 'Mrs ' + passenger.name;
+
+  if (passenger.passport === 6363656531) {
+    alert('check in ');
+  } else {
+    alert('passport is incorrect');
+  }
+};
+checkIn(flight, japse);
+console.log(flight); //LH234,doesn't change.
+console.log(japse); //changed to mrs cause object
+
+const namPassport = function (person) {
+  person.passport = Math.trunc(Math.random() * 100000000);
+};
+namPassport(japse);
+checkIn(flight, japse); //incorrect,2 functions manipulating the same object
+
+//default parameter in function
 const bookings = [];
 const createBooking = function (
   flightNum,
