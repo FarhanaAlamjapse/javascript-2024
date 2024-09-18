@@ -1,4 +1,241 @@
 'use strict';
+
+//working with strings 3
+//split and join
+console.log('a+very+nice+string'.split('+')); //['a', 'very', 'nice', 'string']
+console.log('Farhana Alam'.split(' ')); //['Farhana', 'Alam']
+
+const [firstName, lastName] = 'Farhana Alam'.split(' ');
+console.log("'f:'firstName, 'l:'lastName");
+
+const newName = ['Mrs.', firstName, lastName.toUpperCase()].join(' '); //Mrs. Farhana ALAM
+console.log(newName);
+
+const capitalizeName = function (name) {
+  const names = name.split(' '); //array so we can loop over
+  const namesUpper = [];
+  for (const n of names) {
+    //namesUpper.push(n[0].toUpperCase() + n.slice(1)); //Japse And Afif
+    namesUpper.push(n.replace(n[0], n[0].toUpperCase())); //alternative way
+  }
+  console.log(namesUpper.join(' '));
+};
+capitalizeName('japse and afif');
+capitalizeName('farhana alam');
+
+//padding
+const message = 'go to gate 23';
+console.log(message.padStart(25, '+').padEnd(30, '+')); //++++++++++++go to gate 23+++++
+console.log('japse'.padStart(25, '+').padEnd(30, '+'));
+
+const maskCreditCard = function (number) {
+  const str = number + ''; //converted number to string
+  const last = str.slice(-4);
+  return last.padStart(str.length, '+');
+};
+console.log(maskCreditCard(5654865874)); //++++++5874
+console.log(maskCreditCard('67425753657348658')); //+++++++++++++8658
+//repeat
+const message2 = 'Bad weather ';
+console.log(message2.repeat(5));
+
+const planeInline = function (n) {
+  console.log(`there are ${n} planes waiting in line ${'$'.repeat(n)}`);
+};
+planeInline(4); //there are 4 planes waiting in line $$$$
+planeInline(6);
+/*
+//working with strings 2
+const airline = 'Bangladesh Biman'; 
+const plane = 'A320';
+
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+//fix capitalization in name
+const passenger = 'jApSe';
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect =
+  passengerLower[0].toUpperCase() + passengerLower.slice(1);
+console.log(passengerCorrect);
+
+//comparing emails
+const email = 'hello@japse.com';
+const loginEmail = ' Hello@Japse.com \n';
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim(); //remove whitespace \n
+console.log(trimmedEmail);
+
+const normalizeEmail = loginEmail.toLowerCase().trim(); //can do it one line
+console.log(normalizeEmail);
+
+if (email === trimmedEmail) console.log('You are logged in');
+else console.log('your email is incorrect');
+
+//replacing
+const priceGB = '288,97&';
+const priceUS = priceGB.replace('&', '$').replace(',', '.');
+console.log(priceUS);
+
+const announcement = 'All passengers come to boarding door 23.Boarding door 23';
+console.log(announcement.replace('door', 'gate'));
+console.log(announcement.replaceAll('door', 'gate'));
+
+//Booleans
+const plane1 = 'Airbus A320neo';
+console.log(plane1.includes('A32'));
+console.log(plane1.includes('boing'));
+console.log(plane1.startsWith('A32'));
+
+if (plane1.startsWith('Airbus') || plane1.endsWith('neo')) {
+  console.log('Part of new airbus family');
+}
+//practice exercise
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();//convert everything to lowercase first to compare
+  if (baggage.includes('knife') || baggage.includes('gun')) {
+    console.log('your are not allowed');
+  } else console.log('You welcome');
+};
+
+checkBaggage('I have a laptop,some food and pocket Knife');
+checkBaggage('socks and camera');
+checkBaggage('got some snacks and a gun for protection');
+/*
+console.log(plane[0]);
+console.log(plane[1]);
+
+console.log(plane[2]);
+console.log('B368'[0]);
+
+console.log(airline.length);
+console.log('B368'.length);
+console.log(airline.indexOf('g')); //first index
+console.log(airline.lastIndexOf('a')); //14.last one index.space counted
+console.log(airline.indexOf('Biman')); //11.entire word index
+console.log(airline.indexOf('biman')); //-1 as biman not found.string is case sensitive
+
+console.log(airline.slice(4)); //ladesh Biman--including 4(extraction will start from 4)
+console.log(airline.slice(4, 7)); //lad.size=(7-4).doesnt include 7
+
+//without hard coded like indexOf('a')..
+console.log(airline.slice(0, airline.indexOf(' '))); //Bangladesh
+console.log(airline.slice(airline.lastIndexOf(' ') + 1)); //biman..added +1 to remove space
+
+console.log(airline.slice(-2)); //an
+console.log(airline.slice(1, -1)); //angladesh Bima
+
+//example
+const checkMiddleSeat = function (seat) {
+  //B and E are middle seats
+  const s = seat.slice(-1);
+  if (s === 'B' || s === 'E') console.log('you are in middle seat');
+  else console.log('you got lucky');
+};
+checkMiddleSeat('11B');
+checkMiddleSeat('23C');
+checkMiddleSeat('3E');
+console.log(new String('japse'));
+console.log(typeof new String('japse')); //object
+console.log(typeof new String('japse').slice(1)); //string ..after operation done
+
+/*
+// Coding Challenge #1
+
+/* 
+We're building a football betting app (soccer for my American friends 😅)!
+
+Suppose we get data from a web service about a certain game (below). In this challenge we're gonna work with the data. So here are your tasks:
+
+1. Create one player array for each team (variables 'players1' and 'players2')
+2. The first player in any player array is the goalkeeper and the others are field players. For Bayern Munich (team 1) create one variable ('gk') with the goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10 field players
+3. Create an array 'allPlayers' containing all players of both teams (22 players)
+4. During the game, Bayern Munich (team 1) used 3 substitute players. So create a new array ('players1Final') containing all the original team1 players plus 'Thiago', 'Coutinho' and 'Perisic'
+5. Based on the game.odds object, create one variable for each odd (called 'team1', 'draw' and 'team2')
+6. Write a function ('printGoals') that receives an arbitrary number of player names (NOT an array) and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
+7. The team with the lower odd is more likely to win. Print to the console which team is more likely to win, WITHOUT using an if/else statement or the ternary operator.
+
+TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Then, call the function again with players from game.scored
+
+GOOD LUCK 😀
+*/
+/*
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowski',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
+};
+
+//1.
+const [players1, players2] = game.players;
+console.log(players1, players2);
+
+//2.
+const [gk, ...fieldPlayers] = players1;
+console.log(gk, fieldPlayers);
+
+//3.
+const allPlayers = [...players1, ...players2];
+console.log(allPlayers);
+
+//4
+const players1Final = [...players1, 'Thiago', 'Coutinho', 'Periscic'];
+console.log(players1Final);
+
+//5
+const {
+  odds: { team1, x: draw, team2 },
+} = game;
+console.log(team1, draw, team2);
+
+//6
+function printGoals(...players) {
+  console.log(`${players.length} goals were scored `);
+}
+printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
+printGoals('davis', 'japse');
+printGoals(...game.scored);
+
+//7
+team1 < team2 && console.log('Team1 is more likely to win');
+team1 > team2 && console.log('Team2 is more likely to win');
+
+/*
 const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 const openingHours = {
   [weekdays[3]]: {
@@ -49,6 +286,7 @@ const restaurant = {
     console.log(otherIngredient);
   },
 };
+/*
 //map without set
 const question = new Map([
   ['question', 'what is the best programming language in the world?'],
