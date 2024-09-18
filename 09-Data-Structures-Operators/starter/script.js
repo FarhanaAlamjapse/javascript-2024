@@ -1,5 +1,21 @@
 'use strict';
+// Data needed for a later exercise
+const flights =
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
+const getCode = str => str.slice(0, 3).toUpperCase();
+for (const flight of flights.split('+')) {
+  const [type, from, to, time] = flight.split(';');
+  const output = `${type.startsWith('_Delayed') ? '@' : ' '} ${type.replaceAll(
+    '-',
+    ' '
+  )} from ${getCode(from)} to ${getCode(to)} ${time.replace(
+    ':',
+    'h'
+  )}`.padStart(43);
+  console.log(output);
+}
+/*
 //working with strings 3
 //split and join
 console.log('a+very+nice+string'.split('+')); //['a', 'very', 'nice', 'string']
@@ -44,7 +60,7 @@ const planeInline = function (n) {
 };
 planeInline(4); //there are 4 planes waiting in line $$$$
 planeInline(6);
-/*
+
 //working with strings 2
 const airline = 'Bangladesh Biman'; 
 const plane = 'A320';
@@ -101,7 +117,7 @@ const checkBaggage = function (items) {
 checkBaggage('I have a laptop,some food and pocket Knife');
 checkBaggage('socks and camera');
 checkBaggage('got some snacks and a gun for protection');
-/*
+
 console.log(plane[0]);
 console.log(plane[1]);
 
