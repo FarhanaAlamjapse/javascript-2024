@@ -1,4 +1,20 @@
 'use strict';
+
+//function returning function
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
+const greeting = greet('hi'); //greeting variable is actually a function
+greeting('japse'); //hi japse
+greeting('afif'); //hi afif ...it works because of closure
+greet('hello')('arafat'); //this gonna work in one line
+
+//same function using array
+const greet1 = greeting => name => console.log(`${greeting} ${name}`);
+greet1('hi')('abbu');
+/*
 //function accepting other function(callback) as input
 const oneWord = function (str) {
   return str.replace(/ /g, '').toLowerCase(); //javascriptisthebest
@@ -16,12 +32,15 @@ const transformer = function (str, fn) {
 transformer('javascript is the best', upperFirstWord);
 transformer('javascript is the best', oneWord);
 
+//js uses callback all the time
 const high5 = function () {
   console.log('heeyyyyyyy');
 };
 document.body.addEventListener('click', high5);
-['japse', 'afif', 'sakib'].forEach(high5);
-/*/how passing arg works in function
+['japse', 'afif', 'sakib'].forEach(high5);//3 heeyyyyyyy
+
+
+/*how passing arg works in function
 const flight = 'LH234';
 const japse = {
   name: 'japse',
