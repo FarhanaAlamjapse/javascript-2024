@@ -1,5 +1,51 @@
 'use strict';
 
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  //book:function(){}
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode} ${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+  },
+};
+lufthansa.book(189, 'farhana japse');
+lufthansa.book(209, 'nabhan alam');
+console.log(lufthansa);
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+const book = lufthansa.book;
+//book(23,'sarah') not work because its a reg function.this points to undefined
+//call method
+book.call(eurowings, 23, 'sarah william');
+console.log(eurowings);
+
+book.call(lufthansa, 300, 'arafat ali');
+console.log(lufthansa);
+
+const swiss = {
+  airline: 'swiss air line',
+  iataCode: 'SW',
+  bookings: [],
+};
+book.call(swiss, 500, 'Romana akter');
+console.log(swiss);
+
+//apply method
+const flightData = [500, 'Jahangir alam'];
+book.apply(swiss, flightData);
+console.log(swiss);
+
+book.call(swiss, ...flightData);
+
+/*
 //function returning function
 const greet = function (greeting) {
   return function (name) {
@@ -11,7 +57,7 @@ greeting('japse'); //hi japse
 greeting('afif'); //hi afif ...it works because of closure
 greet('hello')('arafat'); //this gonna work in one line
 
-//same function using array
+//same function using arrow
 const greet1 = greeting => name => console.log(`${greeting} ${name}`);
 greet1('hi')('abbu');
 /*
