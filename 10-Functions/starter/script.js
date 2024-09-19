@@ -42,8 +42,47 @@ console.log(swiss);
 const flightData = [500, 'Jahangir alam'];
 book.apply(swiss, flightData);
 console.log(swiss);
-
+//same as apply
 book.call(swiss, ...flightData);
+//bind
+const bookEW = book.bind(eurowings); //bookEW already has this keyword set in stone
+const bookLM = book.bind(lufthansa);
+const bookLX = book.bind(swiss);
+
+bookEW(23, 'Steven williams');
+const bookEW23 = book.bind(eurowings, 23);
+bookEW23('farhana alam');
+bookEW23('sadman');
+
+//with event listener
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  console.log(this); //this will point to where event attached to means button
+  this.planes++;
+  console.log(this.planes);
+};
+//lufthansa.buyPlane()//now this will point to lufthansa
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa)); //bind will return a function.this will point to lufthansa
+
+//partial application
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+const addVAT = addTax.bind(null, 0.23); //first arg is this keyword.here it doesnt need,preset (0.23)is first arg from addTax
+//addVAT=value=>value+value*0.23   exactly same as prev line
+console.log(addVAT(100)); //123
+console.log(addVAT(23)); //28.29
+
+const addTax1 = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+
+const addVAT2 = addTax1(0.23);
+console.log(addVAT2(100));
 
 /*
 //function returning function
