@@ -1,5 +1,24 @@
 'use strict';
+//IIFE
+const runOnce = function () {
+  console.log('This will never run again');
+};
+runOnce();
 
+//IIFE
+(function () {
+  console.log('This will never run again');
+})(); //to immediately call it use ()
+
+//IIFE also work on arrow function
+(() => console.log('this will also never run again'))();
+{
+  const isPrivate = 23;
+  var notPrivate = 50;
+}
+console.log(notPrivate);
+
+/*
 const lufthansa = {
   airline: 'Lufthansa',
   iataCode: 'LH',
@@ -75,6 +94,7 @@ const addVAT = addTax.bind(null, 0.23); //first arg is this keyword.here it does
 console.log(addVAT(100)); //123
 console.log(addVAT(23)); //28.29
 
+//function returning function
 const addTax1 = function (rate) {
   return function (value) {
     return value + value * rate;
