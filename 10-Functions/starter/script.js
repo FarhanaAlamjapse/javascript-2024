@@ -1,4 +1,58 @@
 'use strict';
+//closure
+const secureBooking = function () {
+  let passengerCount = 0;
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+const booker = secureBooking();
+booker(); //1 passengers
+booker(); //2 passengers
+booker(); //3 passengers
+console.dir(booker);
+
+//example 1,
+let f;
+const g = function () {
+  const a = 32;
+  f = function () {
+    //birthplace of f
+    console.log(a * 2);
+  };
+};
+g();
+f();
+console.dir(f);
+
+//re-assign
+const h = function () {
+  const b = 777;
+  f = function () {
+    //reborn
+    console.log(b * 2);
+  };
+};
+h();
+f(); //a function does not loose connection to the variables that were present at birthplace
+console.dir(f);
+
+//example 2
+const boardPassengers = function (n, wait) {
+  //closure also includes arg
+  const perGroup = n / 3;
+
+  setTimeout(function () {
+    console.log(`we are now boarding all ${n} passengers`);
+    console.log(`there are 3 groups each with ${perGroup} passengers`);
+  }, wait * 1000); //complete independently from the boardP assenger func
+
+  console.log(`will start boarding in ${wait} seconds`);
+};
+const perGroup = 1000; //closure has priority over the scope chain
+boardPassengers(180, 3);
+/*
 //IIFE
 const runOnce = function () {
   console.log('This will never run again');
@@ -13,8 +67,8 @@ runOnce();
 //IIFE also work on arrow function
 (() => console.log('this will also never run again'))();
 {
-  const isPrivate = 23;
-  var notPrivate = 50;
+  const isPrivate = 23;//not accessible
+  var notPrivate = 50;//accessible.tahts why in modern js IIFE are not used anymore
 }
 console.log(notPrivate);
 
