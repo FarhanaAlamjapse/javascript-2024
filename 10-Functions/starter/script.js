@@ -1,4 +1,6 @@
 'use strict';
+
+/*
 //closure
 const secureBooking = function () {
   let passengerCount = 0;
@@ -50,7 +52,7 @@ const boardPassengers = function (n, wait) {
 
   console.log(`will start boarding in ${wait} seconds`);
 };
-const perGroup = 1000; //closure has priority over the scope chain
+//const perGroup = 1000; //closure has priority over the scope chain.setTime used this if pergroup didnt decalre at closure
 boardPassengers(180, 3);
 /*
 //IIFE
