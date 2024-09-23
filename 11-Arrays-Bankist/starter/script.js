@@ -73,8 +73,30 @@ const currencies = new Map([
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
+//for (const movement of movements) {
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}:you deposited ${movement}`);
+  } else {
+    console.log(`Movement ${i + 1}:you withdrew ${Math.abs(movement)}`);
+  }
+}
+
+console.log('---ForEach-----');
+
+movements.forEach(function (mov, i, arr) {
+  //foreach higher order function which requires callback func
+  if (mov > 0) {
+    console.log(`Movement ${i + 1}: you deposited ${mov}`);
+  } else {
+    console.log(`Movement ${i + 1}:you withdrew ${Math.abs(mov)}`);
+  }
+});
+
 /////////////////////////////////////////////////
 
+/*
+//array methods
 //slice
 let arr = ['a', 'b', 'c', 'd', 'e'];
 console.log(arr.slice(2)); //['c','d','e'] extracting at position 2.does not mutate original array.return new array
@@ -114,4 +136,4 @@ console.log(arr1.at(0)); //23
 console.log(arr1[arr1.length - 1]); //64 whenever we get last element always subtract from the length
 console.log(arr1.slice(-1)[0]); //64
 console.log(arr1.at(-1)); //64
-console.log('japse'.at(0));
+console.log('japse'.at(0));^*/
