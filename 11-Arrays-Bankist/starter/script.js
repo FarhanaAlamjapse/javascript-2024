@@ -61,16 +61,88 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+  //.textContent=0
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `<div class="movements__row">
+          <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+          <div class="movements__value">${mov}</div>`;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+displayMovements(account1.movements);
+//console.log(containerMovements.innerHTML);
+
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+
+createUsernames(accounts);
+console.log(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
+/* 
+//map
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.1;
+
+// const movementsUSD = movements.map(function (mov) {
+//   return mov * eurToUsd;
+// });
+// console.log(movementsUSD);
+
+const movementsUSD = movements.map(mov => mov * eurToUsd);
+console.log(movementsUSD); //same in arrow
+
+const movementUSDfor = [];
+for (const mov of movements) movementUSDfor.push(mov * eurToUsd);
+console.log(movementUSDfor); //same in for loop
+
+const movementsDescription = movements.map((mov, i) => {
+  return `Movement ${i + 1}: you ${
+    mov > 0 ? 'deposited' : 'withdrew'
+  } ${Math.abs(mov)}`;
+});
+// if (mov > 0) {
+//   return `movement ${i + 1}:you deposited ${mov}`;
+// } else {
+//   return `movement ${i + 1}:you withdrew ${Math.abs(mov)}`;
+// }
+
+console.log(movementsDescription);
+/*
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
   ['GBP', 'Pound sterling'],
 ]);
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
 
+//sets
+const currenciesUnique = new Set(['USD', 'GAP', 'USD', 'EUR', 'EUR']);
+console.log(currenciesUnique);
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`${value}:${value}`);
+});
+
+/*
+//foreach
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 //for (const movement of movements) {
