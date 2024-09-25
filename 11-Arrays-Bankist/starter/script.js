@@ -209,6 +209,33 @@ btnClose.addEventListener('click', function (e) {
   inputCloseUsername.value = inputClosePin.value = '';
 });
 
+//flat
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat()); //[1, 2, 3, 4, 5, 6, 7, 8] 1 level of nesting
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2)); //2 level of nesting
+
+// const accountMovements = accounts.map(acc => acc.movements);
+// console.log(accountMovements);
+// const allMovements = accountMovements.flat();
+// console.log(allMovements);
+// const overalBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+// console.log(overalBalance);
+
+//using map then flat is a common operation
+const overalBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance);
+//flatmap comined flat and map
+const overalBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance2);
+
+/*
 //some
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 console.log(movements);
@@ -224,9 +251,9 @@ console.log(movements.every(mov => mov > 0)); //false
 console.log(account4.movements.every(mov => mov > 0)); //true
 //separate callback
 const deposit = mov => mov > 0;
-console.log(movements.some(deposit));
-console.log(movements.every(deposit));
-console.log(movements.filter(deposit));
+console.log(movements.some(deposit));//true
+console.log(movements.every(deposit));//false
+console.log(movements.filter(deposit));// [200, 450, 3000, 70, 1300]
 
 /*
 //find
