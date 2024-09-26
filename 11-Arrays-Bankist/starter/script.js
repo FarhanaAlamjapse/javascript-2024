@@ -216,6 +216,38 @@ btnSort.addEventListener('click', function (e) {
   sort = !sort; //flip
 });
 
+console.log(23 === 23.0); //true
+console.log(0.1 + 0.2); //0.30000000000000004
+console.log(0.1 + 0.2 === 0.3); //false
+
+console.log(Number('23')); //23
+console.log(+'23'); //23
+console.log(Number('23', 10)); //base 10, can avoid some bug
+console.log(Number('23', 2)); //base 2,result is not same
+
+//parsing
+console.log(Number.parseInt('23px')); //23 tries to get rid of other things than number
+console.log(Number.parseInt('e23')); //NaN  must start with number
+
+console.log(Number.parseFloat('2.5 rem')); //2.5
+console.log(parseFloat('2.5 rem')); //also works but old traditional
+
+//check if value is NaN
+console.log(Number.isNaN(20)); //false
+console.log(Number.isNaN('20')); //false not a NaN.
+console.log(Number.isNaN(+'20X')); //true
+console.log(Number.isNaN(23 / 0)); //false,infinity is not a NaN
+
+//checking if value is number
+console.log(Number.isFinite(20)); //true
+console.log(Number.isFinite('20')); //false
+console.log(Number.isFinite(+'20X')); //false
+console.log(Number.isFinite(23 / 0)); //false
+
+console.log(Number.isInteger(23)); //true
+console.log(Number.isInteger(23.0)); //true
+console.log(Number.isInteger(23 / 0)); //false
+/*
 //array method practice
 //1
 const bankDepositSum = accounts
