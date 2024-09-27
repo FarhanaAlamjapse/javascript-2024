@@ -130,6 +130,10 @@ const updateUI = function (acc) {
 
 // Event handlers
 let currentAccount;
+//fake logged in
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -146,6 +150,14 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+
+    const now1 = new Date();
+    const day = `${now1.getDate()}`.padStart(2, 0);
+    const month = `${now1.getMonth() + 1}`.padStart(2, 0);
+    const year = now1.getFullYear();
+    const hour = now1.getHours();
+    const min = now1.getMinutes();
+    labelDate.textContent = `${day}/${month}/${year},${hour}:${min}`;
 
     //clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -216,6 +228,104 @@ btnSort.addEventListener('click', function (e) {
   sort = !sort; //flip
 });
 
+//Date
+const now = new Date();
+console.log(now);
+
+console.log(new Date('Aug 02 2020 18:05:41')); //take out string to date
+console.log(new Date('December 24,2015'));
+
+console.log(new Date(2037, 10, 19, 15, 23, 5));
+console.log(new Date(2024, 10, 31));
+
+console.log(new Date(0)); //Thu Jan 01 1970 06:00:00 GMT+0600 ...unix time
+console.log(new Date(3 * 24 * 60 * 60 * 1000)); //Sun Jan 04 1970 06:00:00 GMT+0600
+//working with dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear()); //2037
+console.log(future.getMonth()); //10 is basically nov cause js starts with 0
+console.log(future.getDate());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString()); //2037-11-19T09:23:00.000Z
+console.log(future.getTime()); //2142235380000
+console.log(new Date(2142256980000)); //Thu Nov 19 2037 21:23:00 GMT+0600
+console.log(Date.now()); //1727354628752 timestamp
+future.setFullYear(2040);
+console.log(future);
+
+//BigInt
+console.log(2 ** 53 - 1); //9007199254740991 biggest number
+console.log(Number.MAX_SAFE_INTEGER); //9007199254740991
+
+console.log(76587368983475898629034689354684349034796586n); //bigint
+console.log(BigInt(885684378937856)); //bigint
+
+//operators
+console.log(10000n + 10000n); //20000n
+console.log(263586646237648564n * 1000000000n); //263586646237648564000000000n
+
+//cant mix bigInt with other types
+const huge = 889345984385963845n;
+const num = 23;
+//console.log(huge * num); //get error
+//console.log(Math.sqrt(16n));//get error
+console.log(huge * BigInt(num)); //now works
+
+//exceptions
+console.log(20n > 15); //true
+console.log(20n === 20); //false,doesnt tyope coercion
+console.log(20n == '20'); //true...type coercion makes bigint to regular,loose one
+console.log(typeof 20n); //BigInt
+
+console.log(huge + ' is really big'); //converted to string
+
+//divisions
+console.log(11n / 3n); //3n  cut the decimal
+console.log(10 / 3); //3.33333333335
+
+//numeric separators
+//287,460,000,000
+const diameter = 287_460_000;
+console.log(diameter); //287460000
+
+const price = 345_99;
+console.log(price);
+
+const transferFee1 = 15_00;
+const transferFee2 = 1_500;
+console.log(transferFee1);
+const PI = 3.1415; //cant place_ at first,at end,double
+console.log(PI);
+
+console.log(Number('230_000')); //NaN,,,cant write separator when converting
+console.log(parseInt('230_000')); //230 a bug
+
+/*
+//remainder
+console.log(5 % 2);
+console.log(5 / 2); //5=2+2+1
+
+console.log(8 % 3);
+console.log(8 / 3); //8=2*3+2
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(8)); //true
+console.log(isEven(23)); //false
+console.log(isEven(514)); //true
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    //0,2,4,6
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+    //0,3,6,9
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+});
+
+/*
 console.log(23 === 23.0); //true
 console.log(0.1 + 0.2); //0.30000000000000004
 console.log(0.1 + 0.2 === 0.3); //false
