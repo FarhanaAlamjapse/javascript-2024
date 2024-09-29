@@ -279,6 +279,7 @@ btnTransfer.addEventListener('click', function (e) {
     receiverAcc.movementsDates.push(new Date().toISOString());
     // Update UI
     updateUI(currentAccount);
+
     //reset timer
     clearInterval(timer);
     timer = startLogOutTimer();
