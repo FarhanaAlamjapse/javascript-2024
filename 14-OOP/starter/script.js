@@ -89,8 +89,8 @@ bmw.accelerate();
 
 //class declaration
 class PersonCl {
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
   }
   //methods will added to .prototype property
@@ -98,17 +98,50 @@ class PersonCl {
     console.log(2024 - this.birthYear);
   }
   greet() {
-    console.log(`hey ${this.firstName}`); //hey japse
+    console.log(`hey ${this.fullName}`); //hey japse
+  }
+  get age() {
+    return 2000 - this.birthYear;
+  }
+  //set a property that already exists
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name`);
+  }
+  //to fix we also need to create a getter
+  get fullName() {
+    return this._fullName;
   }
 }
-const japse = new PersonCl('japse', 1996);
+
+const japse = new PersonCl('Japse ali', 1996);
 console.log(japse);
+
 japse.calcAge();
+console.log(japse.age); //4..get is like reg method we set on prototype.
 
 console.log(japse.__proto__ === PersonCl.prototype); //true
 
 // PersonCl.prototype.greet = function () {
 //   console.log(`hey ${this.firstName}`); //hey japse
-// };
+// }; same as in class
 
 japse.greet();
+const afif = new PersonCl('nabhan', 2014);
+
+//setter and getters in object
+const account = {
+  owner: 'Jonas',
+  movements: [200, 530, 120, 300],
+  get latest() {
+    return this.movements.slice(-1).pop(); //if we dont use pop() it will give us array[300]
+  },
+  set latest(a) {
+    //in setter one parameter must
+    this.movements.push(a);
+  },
+};
+console.log(account.latest);
+account.latest = 60; //to set value like this
+console.log(account.movements); //[200, 530, 120, 300, 60]
