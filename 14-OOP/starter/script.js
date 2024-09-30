@@ -36,9 +36,31 @@ console.log(jonas.__proto__ === Person.prototype); //true
 console.log(Person.prototype.isPrototypeOf(jonas)); //true
 console.log(Person.prototype.isPrototypeOf(Person)); //false
 
+//prototypeOfLinkedObjects
 //we can set property in prototype.those arent directly instead found in prototype
 Person.prototype.species = 'Homo Sapiens';
 console.log(jonas); //in prototype..its not own property
 
 console.log(jonas.hasOwnProperty('firstName')); //true
 console.log(jonas.hasOwnProperty('species')); //false.not own.but has access because of prototype
+
+console.log(jonas.__proto__); //{species: 'Homo Sapiens', calcAge: ƒ}
+
+//Object.prototype(top of prototype chain)
+console.log(jonas.__proto__.__proto__); //constructor,hasownproperty
+console.log(jonas.__proto__.__proto__.__proto__); //null
+
+console.log(Person.prototype.constructor); //point back to person itself
+console.dir(Person.prototype.constructor); //if we want to inspect func use dir
+
+const arr = [3, 6, 4, 5, 6, 9, 3];
+console.log(arr.__proto__); //all methods.each arr will inherit these method from its prototype
+console.log(arr.__proto__ === Array.prototype); //true
+
+console.log(arr.__proto__.__proto__); //constructor
+
+//dont use this all time
+Array.prototype.unique = function () {
+  return [...new Set(this)];
+};
+console.log(arr.unique);
