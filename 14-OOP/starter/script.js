@@ -13,6 +13,12 @@ const Person = function (firstName, birthYear) {
 const jonas = new Person('jonas', 1991);
 console.log(jonas); //Person {firstName: 'jonas', birthYear: 1991, calcAge: ƒ}
 
+//static method.not inherited
+Person.hey = function () {
+  console.log('Hey there');
+};
+Person.hey();
+//jonas.hey(); //we cannot call this.because its simply not in the prototype of jonas object
 //new {} is created
 //function is called,this={}
 //{} is linked to prototype
@@ -93,6 +99,7 @@ class PersonCl {
     this.fullName = fullName;
     this.birthYear = birthYear;
   }
+  //instance method
   //methods will added to .prototype property
   calcAge() {
     console.log(2024 - this.birthYear);
@@ -113,8 +120,13 @@ class PersonCl {
   get fullName() {
     return this._fullName;
   }
+  //static method:use static keyword
+  static hey() {
+    console.log('Hey there');
+    console.log(this);
+  }
 }
-
+PersonCl.hey();
 const japse = new PersonCl('Japse ali', 1996);
 console.log(japse);
 
@@ -128,7 +140,7 @@ console.log(japse.__proto__ === PersonCl.prototype); //true
 // }; same as in class
 
 japse.greet();
-const afif = new PersonCl('nabhan', 2014);
+//const afif = new PersonCl('nabhan', 2014);
 
 //setter and getters in object
 const account = {
@@ -145,3 +157,23 @@ const account = {
 console.log(account.latest);
 account.latest = 60; //to set value like this
 console.log(account.movements); //[200, 530, 120, 300, 60]
+
+//object.create
+const PersonProto = {
+  calcAge() {
+    console.log(2024 - this.birthYear);
+  },
+  init(name, birthYear) {
+    this.name = name;
+    this.birthYear = birthYear;
+  },
+};
+const arafat = Object.create(PersonProto); //its linked to prototype now..manually set to obj
+console.log(arafat);
+arafat.name = 'arafat';
+arafat.birthYear = 1993;
+arafat.calcAge();
+
+const rick = Object.create(PersonProto);
+rick.init('rick', 1990);
+rick.calcAge();
