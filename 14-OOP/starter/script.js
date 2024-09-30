@@ -63,4 +63,52 @@ console.log(arr.__proto__.__proto__); //constructor
 Array.prototype.unique = function () {
   return [...new Set(this)];
 };
-console.log(arr.unique);
+console.log(arr.unique); //created a method on prototype
+
+//challenge Prototype:
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+const bmw = new Car('BMW', 120);
+const mercedes = new Car('Mercedes', 95);
+
+Car.prototype.accelerate = function (speed) {
+  this.speed += 10;
+  console.log(`${this.make} is going at ${this.speed}km/h`);
+};
+
+Car.prototype.brake = function (speed) {
+  this.speed -= 5;
+  console.log(`${this.make} is going at ${this.speed}km/h`);
+};
+bmw.accelerate();
+bmw.accelerate();
+bmw.brake();
+bmw.accelerate();
+
+//class declaration
+class PersonCl {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+  //methods will added to .prototype property
+  calcAge() {
+    console.log(2024 - this.birthYear);
+  }
+  greet() {
+    console.log(`hey ${this.firstName}`); //hey japse
+  }
+}
+const japse = new PersonCl('japse', 1996);
+console.log(japse);
+japse.calcAge();
+
+console.log(japse.__proto__ === PersonCl.prototype); //true
+
+// PersonCl.prototype.greet = function () {
+//   console.log(`hey ${this.firstName}`); //hey japse
+// };
+
+japse.greet();
