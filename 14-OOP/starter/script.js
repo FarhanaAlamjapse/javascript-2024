@@ -312,7 +312,7 @@ class StudentCl extends PersonCl {
 const martha = new StudentCl('Martha Jonas', 2012, 'cse');
 martha.introduce();
 martha.calcAge();
-console.log(martha);*/
+console.log(martha);
 
 //Inheritance between classes:Object.create
 const PersonProto = {
@@ -339,4 +339,71 @@ const jay = Object.create(StudentProto);
 jay.init('japse', 1996, 'cse');
 console.log(jay);
 jay.introduce();
-jay.calcAge();
+jay.calcAge();*/
+
+//public fields
+//private fields
+//public methods
+//private methods
+//static
+
+class Account {
+  //public fields (instances)
+  locale = navigator.language;
+
+  //private fields (instances)
+  #movements = [];
+  #pin;
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    //protected property
+    this.#pin = pin;
+    // this._#movements = [];
+    //this.locale = navigator.language;
+    console.log(`thanks for opening an account ${this.owner}`);
+  }
+  //public methods
+  //public interface
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+  }
+
+  withdrawal(val) {
+    this.deposit(-val); //we can call other method
+  }
+  //private method:#approveLoan(val) {
+  _approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    //#approveLoan(val)
+    if (this._approveLoan(val)) {
+      this.deposit(val);
+      console.log('Loan approved');
+    }
+  }
+  static helper() {
+    console.log('hello');
+  }
+}
+const acc1 = new Account('japse', 'Taka', 1111);
+// acc1.movements.push(300);//this is not better,better to create method
+// acc1.movements.push(-300);//not better
+acc1.deposit(500);
+acc1.withdrawal(200);
+acc1.requestLoan(100);
+acc1._approveLoan(100);
+
+console.log(acc1.getMovements());
+console.log(acc1);
+
+//console.log(acc1.#movements);not accessible as private field
+//console.log(acc1.#pin);not accessible as private field
+Account.helper();
