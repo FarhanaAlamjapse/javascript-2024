@@ -1,4 +1,5 @@
 'use strict';
+/*
 //function constructor
 //arrow func will not work as function constructor.as its dont have own this keyword
 const Person = function (firstName, birthYear) {
@@ -176,4 +177,42 @@ arafat.calcAge();
 
 const rick = Object.create(PersonProto);
 rick.init('rick', 1990);
-rick.calcAge();
+rick.calcAge();*/
+
+//Inheritance between classes:constructor function
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+Person.prototype.calcAge = function () {
+  console.log(2024 - this.birthYear);
+};
+
+const Student = function (firstName, birthYear, course) {
+  //in reg func call this set to undefined
+  Person.call(this, firstName, birthYear); //now this point to object
+  this.course = course;
+};
+//linking prototypes
+Student.prototype = Object.create(Person.prototype); //inherits person prototype
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2020, 'cse');
+console.log(mike);
+mike.introduce();
+mike.calcAge();
+console.log(mike.__proto__); //introduce method which is prot0type
+console.log(mike.__proto__.__proto__); //calcage method form parent also prototype
+console.log(mike.__proto__.__proto__.__proto__); //object prototype
+
+console.log(mike instanceof Student); //true
+console.log(mike instanceof Person); //also true cause we linked it by object.create
+console.log(mike instanceof Object); //true it also in prototype chain
+
+console.dir(Student.prototype.constructor); //points to person cause we set it by object.create
+
+//so we need to fix
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor); //now points to student
