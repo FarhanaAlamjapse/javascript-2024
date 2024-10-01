@@ -177,7 +177,7 @@ arafat.calcAge();
 
 const rick = Object.create(PersonProto);
 rick.init('rick', 1990);
-rick.calcAge();*/
+rick.calcAge();
 
 //Inheritance between classes:constructor function
 const Person = function (firstName, birthYear) {
@@ -216,3 +216,100 @@ console.dir(Student.prototype.constructor); //points to person cause we set it b
 //so we need to fix
 Student.prototype.constructor = Student;
 console.dir(Student.prototype.constructor); //now points to student
+
+//challenge of inheritance
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`${this.make} is going at ${this.speed} km/h`);
+};
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.make} is going at ${this.speed} km/h`);
+};
+const EV = function (make, speed, charge) {
+  Car.call(this, make, speed);
+  this.charge = charge;
+};
+
+//link the prototypes
+EV.prototype = Object.create(Car.prototype);
+
+EV.prototype.chargeBattery = function (chargeTo) {
+  this.charge = chargeTo;
+};
+
+EV.prototype.accelerate = function () {
+  this.speed += 20;
+  this.charge--;
+  console.log(
+    `${this.make} is going at ${this.speed} km/h with a charge of ${this.charge}`
+  );
+};
+
+const tesla = new EV('tesla', 120, 23);
+tesla.chargeBattery(90);
+console.log(tesla);
+tesla.brake();
+tesla.accelerate();*/
+
+//inheritance ES6 classes:
+class PersonCl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+  //instance method
+  //methods will added to .prototype property
+  calcAge() {
+    console.log(2024 - this.birthYear);
+  }
+  greet() {
+    console.log(`hey ${this.fullName}`); //hey japse
+  }
+  get age() {
+    return 2000 - this.birthYear;
+  }
+  //set a property that already exists
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name`);
+  }
+  //to fix we also need to create a getter
+  get fullName() {
+    return this._fullName;
+  }
+  //static method:use static keyword
+  static hey() {
+    console.log('Hey there');
+    console.log(this);
+  }
+}
+
+class StudentCl extends PersonCl {
+  constructor(fullName, birthYear, course) {
+    //always needs to happen first
+    super(fullName, birthYear);
+    this.course = course;
+  }
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study in ${this.course}`);
+  }
+  calcAge() {
+    console.log(
+      `I am ${
+        2024 - this.birthYear
+      } years old,but as a student I feel more like ${
+        2024 - this.birthYear + 10
+      }`
+    );
+  }
+}
+const martha = new StudentCl('Martha Jonas', 2012, 'cse');
+martha.introduce();
+martha.calcAge();
+console.log(martha);
