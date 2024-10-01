@@ -254,7 +254,7 @@ const tesla = new EV('tesla', 120, 23);
 tesla.chargeBattery(90);
 console.log(tesla);
 tesla.brake();
-tesla.accelerate();*/
+tesla.accelerate();
 
 //inheritance ES6 classes:
 class PersonCl {
@@ -312,4 +312,31 @@ class StudentCl extends PersonCl {
 const martha = new StudentCl('Martha Jonas', 2012, 'cse');
 martha.introduce();
 martha.calcAge();
-console.log(martha);
+console.log(martha);*/
+
+//Inheritance between classes:Object.create
+const PersonProto = {
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+  calcAge() {
+    console.log(2024 - this.birthYear);
+  },
+};
+const steven = Object.create(PersonProto);
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, courses) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.courses = courses;
+};
+
+StudentProto.introduce = function () {
+  console.log(`Hey I am ${this.firstName} and I love ${this.courses}`);
+};
+const jay = Object.create(StudentProto);
+jay.init('japse', 1996, 'cse');
+console.log(jay);
+jay.introduce();
+jay.calcAge();
