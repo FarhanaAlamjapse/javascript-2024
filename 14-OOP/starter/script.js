@@ -339,7 +339,7 @@ const jay = Object.create(StudentProto);
 jay.init('japse', 1996, 'cse');
 console.log(jay);
 jay.introduce();
-jay.calcAge();*/
+jay.calcAge();
 
 //public fields
 //private fields
@@ -353,13 +353,13 @@ class Account {
 
   //private fields (instances)
   #movements = [];
-  #pin;
+  #pin; //just like set an empty var
 
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
     //protected property
-    this.#pin = pin;
+    this.#pin = pin; //we can access it and set to the value
     // this._#movements = [];
     //this.locale = navigator.language;
     console.log(`thanks for opening an account ${this.owner}`);
@@ -372,10 +372,12 @@ class Account {
 
   deposit(val) {
     this.#movements.push(val);
+    return this; //returning acc1
   }
 
   withdrawal(val) {
     this.deposit(-val); //we can call other method
+    return this;
   }
   //private method:#approveLoan(val) {
   _approveLoan(val) {
@@ -387,6 +389,7 @@ class Account {
     if (this._approveLoan(val)) {
       this.deposit(val);
       console.log('Loan approved');
+      return this;
     }
   }
   static helper() {
@@ -406,4 +409,77 @@ console.log(acc1);
 
 //console.log(acc1.#movements);not accessible as private field
 //console.log(acc1.#pin);not accessible as private field
-Account.helper();
+//Account.helper();
+
+//chaining
+acc1
+  .deposit(300)
+  .deposit(500)
+  .withdrawal(30)
+  .requestLoan(20000)
+  .withdrawal(500);
+console.log(acc1.getMovements());// [500, -200, 100, 300, 500, -30, 20000, -500]*/
+
+//challenge of inheritance 2 using es6 classes
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+  }
+
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+    return this;
+  }
+  get speedUS() {
+    return this.speed / 1.6;
+  }
+
+  set speedUS(speed) {
+    this.speed = speed * 1.6;
+  }
+}
+class EVCl extends CarCl {
+  //private
+  #charge;
+
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    return this;
+  }
+
+  accelerate() {
+    this.speed += 20;
+    this.#charge--;
+    console.log(
+      `${this.make} is going at ${this.speed} km/h, with a charge of ${
+        this.#charge
+      }`
+    );
+    return this;
+  }
+}
+
+const rivian = new EVCl('Rivian', 120, 23);
+console.log(rivian);
+console.log(EVCl.__proto__.__proto__);
+
+rivian
+  .accelerate()
+  .accelerate()
+  .accelerate()
+  .brake()
+  .chargeBattery(50)
+  .accelerate();
+console.log(rivian.speedUS);
