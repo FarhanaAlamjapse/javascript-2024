@@ -1,4 +1,7 @@
 'use strict';
+const btn = document.querySelector('.btn-country');
+const countriesContainer = document.querySelector('.countries');
+
 /*
 //ajax call
 const getCountry = function (country) {
@@ -144,7 +147,7 @@ const renderCountry = function (data, className = '') {
       `;
   //insert this into our page
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
+  // countriesContainer.style.opacity = 1;
 };
 
 // const getCountryData = function (country) {
@@ -160,19 +163,42 @@ const renderCountry = function (data, className = '') {
 // getCountryData('portugal');
 
 //two ajax call
+const renderError = function (message) {
+  countriesContainer.insertAdjacentText('beforebegin', message);
+  // countriesContainer.style.opacity = 1;
+};
+const getJSON = function (url, errorMsg = 'Something went wrong') {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(`${errorMsg} ${response.status}`);
+    return response.json();
+  });
+};
+
 const getCountryData = function (country) {
-  fetch(`https://restcountries.com/v2/name/${country}`)
-    .then(response => {
-      return response.json();
-    })
+  getJSON(`https://restcountries.com/v2/name/${country}`, 'Country not found')
     .then(data => {
       renderCountry(data[0]);
 
       const neighbor = data[0].borders?.[0];
-      if (!neighbor) return;
-      return fetch(`https://restcountries.com/v2/alpha/${neighbor}`);
+
+      if (!neighbor) throw new Error('No neighbor found');
+
+      return getJSON(
+        `https://restcountries.com/v2/alpha/${neighbor}`,
+        'country not found'
+      );
     })
-    .then(response => response.json())
-    .then(data => renderCountry(data, 'neighbour'));
+
+    .then(data => renderCountry(data, 'neighbour'))
+    .catch(err => {
+      console.log(`${err} :-`);
+      renderError(`something went wrong ${err.message}.try again`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
 };
+btn.addEventListener('click', function () {
+  getCountryData('bangladesh');
+});
 getCountryData('singapore');
