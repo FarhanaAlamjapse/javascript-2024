@@ -118,7 +118,7 @@ setTimeout(() => {
       }, 4000);
     }, 3000);
   }, 2000);
-}, 1000);*/
+}, 1000);
 
 //promises and fetch API
 
@@ -201,4 +201,43 @@ const getCountryData = function (country) {
 btn.addEventListener('click', function () {
   getCountryData('bangladesh');
 });
-getCountryData('singapore');
+getCountryData('singapore');*/
+
+//building and simple promise
+const lotteryPromise = new Promise(function (resolve, reject) {
+  console.log('Lottery draw is happening');
+  setTimeout(() => {
+    if (Math.random() >= 0.5) {
+      resolve('You win');
+    } else {
+      reject(new Error('you lose'));
+    }
+  }, 2000);
+});
+lotteryPromise.then(res => console.log(res)).catch(err => console.log(err)); //consumed promises these res,err are resolve and reject
+
+//promisifying setTimeout
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+wait(1)
+  .then(() => {
+    console.log('1 sec passed');
+    return wait(1);
+  })
+  .then(() => {
+    console.log('2 sec passed');
+    return wait(2);
+  })
+  .then(() => {
+    console.log('3 sec passed');
+    return wait(3);
+  })
+  .then(() => console.log('4 sec passed'));
+
+//very easy fulffiled or rejected promise
+Promise.resolve('abc').then(x => console.log(x));
+Promise.reject('abc').catch(x => console.error(x));
