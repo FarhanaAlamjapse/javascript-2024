@@ -302,7 +302,7 @@ createImage('img/img-1.jpg')
   .then(() => {
     currentImg.style.display = 'none';
   })
-  .catch(err => console.error(err));*/
+  .catch(err => console.error(err));
 
 //consuming promises with async/await
 //try catch
@@ -355,4 +355,81 @@ console.log('1:start');
     console.log(`2:${err.message}`);
   }
   console.log('3:finish');
+})();*/
+
+//running promises in parallel
+const getJSON = function (url, errorMsg = 'Something went wrong') {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(`${errorMsg} ${response.status}`);
+    return response.json();
+  });
+};
+const get3Countries = async function (c1, c2, c3) {
+  try {
+    // const [data1] = await getJSON(`https://restcountries.com/v2/name/${c1}`);
+    // const [data2] = await getJSON(`https://restcountries.com/v2/name/${c2}`);
+    // const [data3] = await getJSON(`https://restcountries.com/v2/name/${c3}`);
+
+    // console.log([data1.capital, data2.capital, data3.capital]);
+    const data = await Promise.all([
+      getJSON(`https://restcountries.com/v2/name/${c1}`),
+      getJSON(`https://restcountries.com/v2/name/${c2}`),
+      getJSON(`https://restcountries.com/v2/name/${c3}`),
+    ]);
+    console.log(data.map(c => c[0].capital));
+  } catch (err) {
+    console.error(err);
+  }
+};
+get3Countries('portugal', 'uk', 'australia');
+
+//Promise.race
+(async function () {
+  const res = await Promise.race([
+    getJSON('https://restcountries.com/v2/name/portugal'),
+    getJSON('https://restcountries.com/v2/name/bangladesh'),
+    getJSON('https://restcountries.com/v2/name/india'),
+  ]);
+  console.log(res[0]);
 })();
+
+//like wait(resolves) function only diff is it accepts reject
+const timeout = function (sec) {
+  return new Promise(function (_, reject) {
+    setTimeout(() => {
+      reject(new Error('Request took too long'));
+    }, sec * 1000);
+  });
+};
+Promise.race([
+  getJSON(`https://restcountries.com/v2/name/malaysia`),
+  timeout(0.15),
+])
+  .then(res => console.log(res[0]))
+  .catch(err => console.log(err));
+
+//Promise.allSettled
+Promise.allSettled([
+  Promise.resolve('success'),
+  Promise.reject('Error'),
+  Promise.resolve('another success'),
+]).then(res => console.log(res)); //here we get 3 results even 1 of them rejected
+
+//if we do these in promise.all get rejected
+Promise.all([
+  Promise.resolve('success'),
+  Promise.reject('Error'),
+  Promise.resolve('another success'),
+])
+  .then(res => console.log(res))
+  .catch(err => console.log(err)); //Error
+
+//Promise.any[2021]
+
+Promise.any([
+  Promise.resolve('success'),
+  Promise.reject('Error'),
+  Promise.resolve('another success'),
+])
+  .then(res => console.log(res))
+  .catch(err => console.log(err)); //success
