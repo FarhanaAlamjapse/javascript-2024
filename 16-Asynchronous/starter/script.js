@@ -201,7 +201,7 @@ const getCountryData = function (country) {
 btn.addEventListener('click', function () {
   getCountryData('bangladesh');
 });
-getCountryData('singapore');*/
+getCountryData('singapore');
 
 //building and simple promise
 const lotteryPromise = new Promise(function (resolve, reject) {
@@ -239,5 +239,95 @@ wait(1)
   .then(() => console.log('4 sec passed'));
 
 //very easy fulffiled or rejected promise
-Promise.resolve('abc').then(x => console.log(x));
+Promise.resolve('abc').then(x => console.log(x)); //return immediately resolve is static of promise constructor
 Promise.reject('abc').catch(x => console.error(x));
+
+//promisifying the geoLocation API
+//a callback API to
+// navigator.geolocation.getCurrentPosition(
+//   position => console.log(position),
+//   err => console.log(err)
+// );
+
+//promise based API
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => resolve(position),
+    //   err => reject(err)
+    // );
+    //same
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+getPosition().then(res => console.log(res));
+
+const wait2 = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+const imgContainer = document.querySelector('.images');
+const createImage = function (imgPath) {
+  return new Promise(function (resolve, reject) {
+    const img = document.createElement('img');
+    img.src = imgPath;
+
+    img.addEventListener('load', function () {
+      imgContainer.append(img);
+      resolve(img);
+    });
+    img.addEventListener('error', function () {
+      reject(new Error('Image not found'));
+    });
+  });
+};
+
+let currentImg;
+createImage('img/img-1.jpg')
+  .then(img => {
+    currentImg = img;
+    console.log('img 1 loaded');
+    return wait2(2);
+  })
+  .then(() => {
+    currentImg.style.display = 'none';
+    return createImage('img/img-2.jpg');
+  })
+  .then(img => {
+    currentImg = img;
+    console.log('image 2 loaded');
+    return wait2(2);
+  })
+  .then(() => {
+    currentImg.style.display = 'none';
+  })
+  .catch(err => console.error(err));*/
+
+//consuming promises with async/await
+const getPosition = function () {
+  //Geolocation
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = async function () {
+  const pos = await getPosition();
+  const { latitude: lat, longitude: lng } = pos.coords;
+
+  //reverse geocoding
+  const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+  const dataGeo = await resGeo.json();
+  console.log(dataGeo);
+
+  //country data
+  const res = await fetch(
+    `https://restcountries.com/v2/name/${dataGeo.country}`
+  );
+  console.log(res);
+  const data = await res.json();
+  console.log(data);
+};
+whereAmI();
+console.log('1'); //this will log first
