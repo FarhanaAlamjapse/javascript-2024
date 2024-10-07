@@ -305,6 +305,7 @@ createImage('img/img-1.jpg')
   .catch(err => console.error(err));*/
 
 //consuming promises with async/await
+//try catch
 const getPosition = function () {
   //Geolocation
   return new Promise(function (resolve, reject) {
@@ -313,21 +314,45 @@ const getPosition = function () {
 };
 
 const whereAmI = async function () {
-  const pos = await getPosition();
-  const { latitude: lat, longitude: lng } = pos.coords;
+  try {
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
 
-  //reverse geocoding
-  const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
-  const dataGeo = await resGeo.json();
-  console.log(dataGeo);
+    //reverse geocoding
+    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    if (!resGeo.ok) throw new Error('location not found');
+    const dataGeo = await resGeo.json();
+    console.log(dataGeo.country);
 
-  //country data
-  const res = await fetch(
-    `https://restcountries.com/v2/name/${dataGeo.country}`
-  );
-  console.log(res);
-  const data = await res.json();
-  console.log(data);
+    //country data
+    const res = await fetch(
+      `https://restcountries.com/v2/name/${dataGeo.country}`
+    );
+    if (!res.ok) throw new Error('country not found');
+    console.log(res);
+    const data = await res.json();
+
+    return `you are in${dataGeo.city},${dataGeo.country}`;
+  } catch (err) {
+    console.error(err.message);
+    throw err; //rethrow
+  }
 };
-whereAmI();
-console.log('1'); //this will log first
+console.log('1:start');
+
+// //mix of async then promise
+// whereAmI()
+//   .then(city => console.log(`2:${city}`))
+//   .catch(err => console.log(`2:${err.message}`))
+//   .finally(() => console.log('3:finish'));
+
+//same with async and IIFE
+(async function () {
+  try {
+    const city = await whereAmI();
+    console.log(`2:${city}`);
+  } catch (err) {
+    console.log(`2:${err.message}`);
+  }
+  console.log('3:finish');
+})();
